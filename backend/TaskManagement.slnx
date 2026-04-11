@@ -3,4 +3,6 @@
   <Project Path="TaskManagement.Application/TaskManagement.Application.csproj" Id="ce29af11-be3e-43ab-8653-d4278028337f" />
   <Project Path="TaskManagement.Domain/TaskManagement.Domain.csproj" Id="027e0f0e-88a6-4695-9b3b-e9574ec4cab9" />
   <Project Path="TaskManagement.Infrastructure/TaskManagement.Infrastructure.csproj" />
+  <Project Path="TaskManagement.Tests.Integration/TaskManagement.Tests.Integration.csproj" Id="974bdbc4-1775-485e-aefa-4b37f50f7ef0" />
+  <Project Path="TaskManagement.Tests/TaskManagement.Tests.Unit.csproj" Id="62ef8964-02d8-4a03-9879-32caf9c1081b" />
 </Solution>
