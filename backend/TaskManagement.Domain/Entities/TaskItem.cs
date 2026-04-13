@@ -6,6 +6,8 @@
         public string Title { get; private set; }
         public string Description { get; private set; }
         public DateTime CreatedAt { get; private set; }
+        public bool IsDeleted { get; private set; }
+        public DateTime? DeletedAt { get; private set; }
 
         public TaskItem(string title, string description)
         {
@@ -22,6 +24,15 @@
 
             Title = title;
             Description = description; 
+        }
+
+        public void Delete()
+        {
+            if (IsDeleted)
+                return;
+
+            IsDeleted = true;
+            DeletedAt = DateTime.UtcNow;
         }
     }
 }
