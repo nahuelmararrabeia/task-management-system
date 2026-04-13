@@ -6,6 +6,7 @@ namespace TaskManagement.Infrastructure.Persistence;
 public class AppDbContext : DbContext
 {
     public DbSet<TaskItem> Tasks => Set<TaskItem>();
+    public DbSet<User> Users => Set<User>();
 
     public AppDbContext(DbContextOptions<AppDbContext> options)
         : base(options)
@@ -17,6 +18,9 @@ public class AppDbContext : DbContext
         base.OnModelCreating(modelBuilder);
 
         modelBuilder.Entity<TaskItem>()
+            .HasQueryFilter(t => !t.IsDeleted);
+
+        modelBuilder.Entity<User>()
             .HasQueryFilter(t => !t.IsDeleted);
     }
 }
