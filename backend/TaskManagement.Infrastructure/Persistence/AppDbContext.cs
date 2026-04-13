@@ -22,5 +22,9 @@ public class AppDbContext : DbContext
 
         modelBuilder.Entity<User>()
             .HasQueryFilter(t => !t.IsDeleted);
+
+        modelBuilder.Entity<User>()
+            .HasIndex(u => u.Email)
+            .IsUnique();
     }
 }

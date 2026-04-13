@@ -23,12 +23,16 @@
         CreatedAt = DateTime.UtcNow;
     }
 
-    public void Update(string name)
+    public void Update(string name, string email)
     {
         if (string.IsNullOrWhiteSpace(name))
             throw new ArgumentNullException("Name is required");
 
+        if (string.IsNullOrEmpty(email))
+            throw new ArgumentNullException("Email is required");
+
         Name = name;
+        Email = email;
     }
 
     public void Delete()
