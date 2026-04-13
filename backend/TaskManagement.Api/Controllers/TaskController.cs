@@ -1,8 +1,9 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using TaskManagement.Application.Tasks.Commands.CreateTask;
-using TaskManagement.Application.Tasks.Queries.GetTasks;
+using TaskManagement.Application.Tasks.Commands.UpdateTask;
 using TaskManagement.Application.Tasks.Queries.GetTaskById;
+using TaskManagement.Application.Tasks.Queries.GetTasks;
 
 namespace TaskManagement.Api.Controllers;
 
@@ -23,6 +24,17 @@ public class TasksController : ControllerBase
         var result = await _mediator.Send(command);
 
         return Ok(result);
+    }
+
+    [HttpPut("{id}")]
+    public async Task<IActionResult> Update(Guid id, UpdateTaskCommand command)
+    {
+        if (id != command.Id)
+            return BadRequest();
+
+        await _mediator.Send(command);
+
+        return NoContent();
     }
 
     [HttpGet("{id}")]

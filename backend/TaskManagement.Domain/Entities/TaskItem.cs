@@ -14,5 +14,14 @@
             Description = description;
             CreatedAt = DateTime.UtcNow;
         }
+
+        public void Update(string title, string description)
+        {
+            if(string.IsNullOrEmpty(title))
+                throw new ArgumentNullException("Title cannot be empty");
+
+            Title = title;
+            Description = description; 
+        }
     }
 }
