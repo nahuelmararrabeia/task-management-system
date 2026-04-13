@@ -1,4 +1,4 @@
-﻿using TaskManagement.Application.Tasks.CreateTask;
+﻿using TaskManagement.Application.Tasks.Commands.CreateTask;
 
 namespace TaskManagement.Tests.Integration.TestData.Builders;
 

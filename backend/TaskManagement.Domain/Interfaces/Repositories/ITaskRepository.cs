@@ -6,5 +6,6 @@ namespace TaskManagement.Domain.Interfaces.Repositories
     {
         Task AddAsync(TaskItem task);
         Task<TaskItem?> GetByIdAsync(Guid id);
+        Task<(List<TaskItem>, int)> GetAllAsync(int page, int pageSize);
     }
 }

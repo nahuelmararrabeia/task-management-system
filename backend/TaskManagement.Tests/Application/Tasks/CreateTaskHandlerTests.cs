@@ -1,6 +1,6 @@
 ﻿using FluentAssertions;
 using Moq;
-using TaskManagement.Application.Tasks.CreateTask;
+using TaskManagement.Application.Tasks.Commands.CreateTask;
 using TaskManagement.Domain.Entities;
 using TaskManagement.Domain.Interfaces.Repositories;
 

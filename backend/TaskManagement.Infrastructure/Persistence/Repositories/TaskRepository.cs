@@ -1,4 +1,5 @@
-﻿using TaskManagement.Domain.Entities;
+﻿using Microsoft.EntityFrameworkCore;
+using TaskManagement.Domain.Entities;
 using TaskManagement.Domain.Interfaces.Repositories;
 
 namespace TaskManagement.Infrastructure.Persistence.Repositories;
@@ -21,5 +22,21 @@ public class TaskRepository : ITaskRepository
     public async Task<TaskItem?> GetByIdAsync(Guid id)
     {
         return await _context.Tasks.FindAsync(id);
+    }
+
+    public async Task<(List<TaskItem>, int)> GetAllAsync(int page, int pageSize)
+    {
+        var query = _context.Tasks.AsQueryable();
+
+        var totalCount = await query.CountAsync();
+
+        var items = await query
+            .AsNoTracking()
+            .OrderByDescending(t => t.CreatedAt)
+            .Skip((page - 1) * pageSize)
+            .Take(pageSize)
+            .ToListAsync();
+
+        return (items, totalCount);
     }
 }

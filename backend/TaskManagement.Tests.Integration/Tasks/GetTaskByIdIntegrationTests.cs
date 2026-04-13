@@ -1,8 +1,8 @@
 ﻿using FluentAssertions;
 using System.Net;
 using System.Net.Http.Json;
-using TaskManagement.Application.Tasks.CreateTask;
-using TaskManagement.Application.Tasks.GetTaskById;
+using TaskManagement.Application.Tasks.Commands.CreateTask;
+using TaskManagement.Application.Tasks.Queries.GetTaskById;
 using TaskManagement.Tests.Integration.Fixtures;
 using TaskManagement.Tests.Integration.TestData.Builders;
 

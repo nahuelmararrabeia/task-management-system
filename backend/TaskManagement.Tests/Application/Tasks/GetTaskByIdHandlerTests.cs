@@ -1,8 +1,7 @@
 ﻿using FluentAssertions;
 using Moq;
 using TaskManagement.Application.Common.Exceptions;
-using TaskManagement.Application.Tasks.CreateTask;
-using TaskManagement.Application.Tasks.GetTaskById;
+using TaskManagement.Application.Tasks.Queries.GetTaskById;
 using TaskManagement.Domain.Interfaces.Repositories;
 using TaskManagement.Tests.Unit.TestData.Builders;
 
@@ -23,7 +22,7 @@ namespace TaskManagement.Tests.Application.Tasks
 
             var handler = new GetTaskByIdHandler(repoMock.Object);
 
-            var command = new GetTaskByIdCommand(guid);
+            var command = new GetTaskByIdQuery(guid);
 
 
             var result = await handler.Handle(command, CancellationToken.None);
@@ -44,7 +43,7 @@ namespace TaskManagement.Tests.Application.Tasks
 
             var handler = new GetTaskByIdHandler(repoMock.Object);
 
-            var command = new GetTaskByIdCommand(Guid.NewGuid());
+            var command = new GetTaskByIdQuery(Guid.NewGuid());
 
 
             await Assert.ThrowsAsync<NotFoundException>(() =>
@@ -62,7 +61,7 @@ namespace TaskManagement.Tests.Application.Tasks
 
             var handler = new GetTaskByIdHandler(repoMock.Object);
 
-            var command = new GetTaskByIdCommand(Guid.NewGuid());
+            var command = new GetTaskByIdQuery(Guid.NewGuid());
 
             await Assert.ThrowsAsync<Exception>(() =>
                 handler.Handle(command, CancellationToken.None));

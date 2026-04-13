@@ -2,7 +2,7 @@
 using TaskManagement.Domain.Entities;
 using TaskManagement.Domain.Interfaces.Repositories;
 
-namespace TaskManagement.Application.Tasks.CreateTask;
+namespace TaskManagement.Application.Tasks.Commands.CreateTask;
 
 public class CreateTaskHandler : IRequestHandler<CreateTaskCommand, CreateTaskResponse>
 {

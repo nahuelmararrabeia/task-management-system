@@ -34,6 +34,12 @@ public class PostgresFixture : IAsyncLifetime
         await Container.DisposeAsync();
     }
 
+    public async Task ResetDatabaseAsync()
+    {
+        await Container.ExecScriptAsync(@"
+            TRUNCATE TABLE ""Tasks"" RESTART IDENTITY CASCADE;");
+    }
+
     private async Task ApplyMigrationsAsync()
     {
         var options = new DbContextOptionsBuilder<AppDbContext>()

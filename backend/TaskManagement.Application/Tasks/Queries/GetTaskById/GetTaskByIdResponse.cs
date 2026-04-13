@@ -1,4 +1,4 @@
-﻿namespace TaskManagement.Application.Tasks.GetTaskById;
+﻿namespace TaskManagement.Application.Tasks.Queries.GetTaskById;
 
 public record GetTaskByIdResponse(
     Guid Id,

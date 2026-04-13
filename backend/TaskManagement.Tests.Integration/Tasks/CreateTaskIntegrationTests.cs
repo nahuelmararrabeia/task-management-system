@@ -2,8 +2,8 @@
 using Microsoft.Extensions.DependencyInjection;
 using System.Net;
 using System.Net.Http.Json;
-using TaskManagement.Application.Tasks.CreateTask;
-using TaskManagement.Application.Tasks.GetTaskById;
+using TaskManagement.Application.Tasks.Commands.CreateTask;
+using TaskManagement.Application.Tasks.Queries.GetTaskById;
 using TaskManagement.Domain.Entities;
 using TaskManagement.Infrastructure.Persistence;
 using TaskManagement.Tests.Integration.Fixtures;

@@ -1,11 +1,10 @@
 ﻿using MediatR;
 using TaskManagement.Application.Common.Exceptions;
-using TaskManagement.Application.Tasks.GetTaskById;
 using TaskManagement.Domain.Interfaces.Repositories;
 
-namespace TaskManagement.Application.Tasks.CreateTask;
+namespace TaskManagement.Application.Tasks.Queries.GetTaskById;
 
-public class GetTaskByIdHandler : IRequestHandler<GetTaskByIdCommand, GetTaskByIdResponse>
+public class GetTaskByIdHandler : IRequestHandler<GetTaskByIdQuery, GetTaskByIdResponse>
 {
     private readonly ITaskRepository _repository;
 
@@ -14,7 +13,7 @@ public class GetTaskByIdHandler : IRequestHandler<GetTaskByIdCommand, GetTaskByI
         _repository = repository;
     }
 
-    public async Task<GetTaskByIdResponse> Handle(GetTaskByIdCommand request, CancellationToken cancellationToken)
+    public async Task<GetTaskByIdResponse> Handle(GetTaskByIdQuery request, CancellationToken cancellationToken)
     {
         var task = await _repository.GetByIdAsync(request.Id);
 

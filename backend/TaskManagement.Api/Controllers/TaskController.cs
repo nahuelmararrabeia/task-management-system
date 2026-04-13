@@ -1,7 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using MediatR;
-using TaskManagement.Application.Tasks.CreateTask;
-using TaskManagement.Application.Tasks.GetTaskById;
+﻿using MediatR;
+using Microsoft.AspNetCore.Mvc;
+using TaskManagement.Application.Tasks.Commands.CreateTask;
+using TaskManagement.Application.Tasks.Queries.GetTasks;
+using TaskManagement.Application.Tasks.Queries.GetTaskById;
 
 namespace TaskManagement.Api.Controllers;
 
@@ -27,7 +28,17 @@ public class TasksController : ControllerBase
     [HttpGet("{id}")]
     public async Task<ActionResult<GetTaskByIdResponse>> GetById(Guid id)
     {
-        var result = await _mediator.Send(new GetTaskByIdCommand(id));
+        var result = await _mediator.Send(new GetTaskByIdQuery(id));
+
+        return Ok(result);
+    }
+
+    [HttpGet]
+    public async Task<IActionResult> GetAll([FromQuery] int page = 1, [FromQuery] int pageSize = 10)
+    {
+        var query = new GetTasksQuery(page, pageSize);
+
+        var result = await _mediator.Send(query);
 
         return Ok(result);
     }
