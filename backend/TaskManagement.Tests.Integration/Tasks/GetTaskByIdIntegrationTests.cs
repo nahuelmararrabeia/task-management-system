@@ -51,4 +51,22 @@ public class GetTaskByIdIntegrationTests
         // THEN
         response.StatusCode.Should().Be(HttpStatusCode.NotFound);
     }
+
+    [Fact]
+    public async Task Should_Return_404_When_Getting_Deleted_Task()
+    {
+        // GIVEN
+        var createRequest = new CreateTaskRequestBuilder().Build();
+
+        var createResponse = await _fixture.Client.PostAsJsonAsync("/api/tasks", createRequest);
+        var created = await createResponse.Content.ReadFromJsonAsync<CreateTaskResponse>();
+
+        await _fixture.Client.DeleteAsync($"/api/tasks/{created!.Id}");
+
+        // WHEN
+        var response = await _fixture.Client.GetAsync($"/api/tasks/{created.Id}");
+
+        // THEN
+        response.StatusCode.Should().Be(HttpStatusCode.NotFound);
+    }
 }

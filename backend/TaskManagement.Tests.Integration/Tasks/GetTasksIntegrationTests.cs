@@ -53,6 +53,28 @@ namespace TaskManagement.Tests.Integration.Tasks
             result!.Items.Should().BeEmpty();
         }
 
+        [Fact]
+        public async Task Should_Not_Return_Deleted_Task_In_GetAll()
+        {
+            // GIVEN
+            var createRequest = new CreateTaskRequestBuilder().Build();
+
+            var createResponse = await _fixture.Client.PostAsJsonAsync("/api/tasks", createRequest);
+            var created = await createResponse.Content.ReadFromJsonAsync<CreateTaskResponse>();
+
+            await _fixture.Client.DeleteAsync($"/api/tasks/{created!.Id}");
+
+            // WHEN
+            var response = await _fixture.Client.GetAsync("/api/tasks");
+
+            // THEN
+            response.EnsureSuccessStatusCode();
+
+            var result = await response.Content.ReadFromJsonAsync<GetTasksResponse>();
+
+            result!.Items.Should().NotContain(t => t.Id == created.Id);
+        }
+
         private async Task CreateTasks(List<CreateTaskCommand> tasks)
         {
             foreach (var task in tasks) {

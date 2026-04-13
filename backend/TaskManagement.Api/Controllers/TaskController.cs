@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using TaskManagement.Application.Tasks.Commands.CreateTask;
+using TaskManagement.Application.Tasks.Commands.DeleteTask;
 using TaskManagement.Application.Tasks.Commands.UpdateTask;
 using TaskManagement.Application.Tasks.Queries.GetTaskById;
 using TaskManagement.Application.Tasks.Queries.GetTasks;
@@ -34,6 +35,13 @@ public class TasksController : ControllerBase
 
         await _mediator.Send(command);
 
+        return NoContent();
+    }
+
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> Delete(Guid id)
+    {
+        await _mediator.Send(new DeleteTaskCommand(id));
         return NoContent();
     }
 

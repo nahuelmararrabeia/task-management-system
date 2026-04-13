@@ -11,4 +11,12 @@ public class AppDbContext : DbContext
         : base(options)
     {
     }
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        base.OnModelCreating(modelBuilder);
+
+        modelBuilder.Entity<TaskItem>()
+            .HasQueryFilter(t => !t.IsDeleted);
+    }
 }
