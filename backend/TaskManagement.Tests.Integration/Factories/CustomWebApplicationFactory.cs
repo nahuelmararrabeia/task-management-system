@@ -1,8 +1,10 @@
-﻿using Microsoft.AspNetCore.Hosting;
+﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using TaskManagement.Infrastructure.Persistence;
+using TaskManagement.Tests.Integration.Common;
 
 namespace TaskManagement.Tests.Integration.Factories;
 
@@ -24,6 +26,16 @@ public class CustomWebApplicationFactory : WebApplicationFactory<Program>
 
             if (descriptor != null)
                 services.Remove(descriptor);
+
+            services.AddAuthentication("Test")
+                .AddScheme<AuthenticationSchemeOptions, TestAuthHandler>(
+                    "Test", options => { });
+
+            services.PostConfigure<AuthenticationOptions>(options =>
+            {
+                options.DefaultAuthenticateScheme = "Test";
+                options.DefaultChallengeScheme = "Test";
+            });
 
             services.AddDbContext<AppDbContext>(options =>
             {
