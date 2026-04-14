@@ -1,6 +1,8 @@
-﻿namespace TaskManagement.Domain.Entities
+﻿using TaskManagement.Domain.Common;
+
+namespace TaskManagement.Domain.Entities
 {
-    public class TaskItem
+    public class TaskItem : AuditableEntity
     {
         public Guid Id { get; private set; }
         public string Title { get; private set; }

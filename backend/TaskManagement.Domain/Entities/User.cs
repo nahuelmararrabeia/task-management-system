@@ -1,4 +1,6 @@
-﻿public class User
+﻿using TaskManagement.Domain.Common;
+
+public class User : AuditableEntity
 {
     public Guid Id { get; private set; }
     public string Email { get; private set; }
