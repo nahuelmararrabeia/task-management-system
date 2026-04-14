@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 using System.Net;
 using System.Net.Http.Json;
-using TaskManagement.Application.Users.Commands;
+using TaskManagement.Application.Users.Commands.CreateUser;
 using TaskManagement.Infrastructure.Persistence;
 using TaskManagement.Tests.Integration.Fixtures;
 using TaskManagement.Tests.Integration.TestData.Builders;

@@ -4,6 +4,8 @@ using TaskManagement.Domain.Interfaces.Repositories;
 using TaskManagement.Infrastructure.Persistence;
 using TaskManagement.Infrastructure.Persistence.Repositories;
 using Microsoft.Extensions.Configuration;
+using TaskManagement.Application.Common.Interfaces;
+using TaskManagement.Infrastructure.Auth;
 
 namespace TaskManagement.Infrastructure;
 
@@ -19,6 +21,8 @@ public static class DependencyInjection
 
         services.AddScoped<ITaskRepository, TaskRepository>();
         services.AddScoped<IUserRepository, UserRepository>();
+
+        services.AddScoped<IJwtTokenGenerator, JwtTokenGenerator>();
 
         return services;
     }

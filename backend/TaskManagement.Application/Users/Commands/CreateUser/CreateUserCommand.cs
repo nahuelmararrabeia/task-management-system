@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace TaskManagement.Application.Users.Commands
+namespace TaskManagement.Application.Users.Commands.CreateUser
 {
     public record CreateUserCommand(
     string Email,

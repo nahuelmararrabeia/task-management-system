@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using TaskManagement.Application.Users.Commands;
+using TaskManagement.Application.Users.Commands.CreateUser;
 
 namespace TaskManagement.Tests.Integration.TestData.Builders
 {

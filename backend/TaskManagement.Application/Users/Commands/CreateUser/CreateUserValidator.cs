@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 
-namespace TaskManagement.Application.Users.Commands
+namespace TaskManagement.Application.Users.Commands.CreateUser
 {
     public class CreateUserValidator : AbstractValidator<CreateUserCommand>
     {

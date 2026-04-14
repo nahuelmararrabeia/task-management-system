@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using TaskManagement.Application.Tasks.Commands.CreateTask;
 using TaskManagement.Application.Tasks.Commands.DeleteTask;
@@ -20,6 +21,7 @@ public class TasksController : ControllerBase
     }
 
     [HttpPost]
+    [Authorize]
     public async Task<ActionResult<CreateTaskResponse>> Create(CreateTaskCommand command)
     {
         var result = await _mediator.Send(command);
@@ -28,6 +30,7 @@ public class TasksController : ControllerBase
     }
 
     [HttpPut("{id}")]
+    [Authorize]
     public async Task<IActionResult> Update(Guid id, UpdateTaskCommand command)
     {
         if (id != command.Id)
@@ -39,6 +42,7 @@ public class TasksController : ControllerBase
     }
 
     [HttpDelete("{id}")]
+    [Authorize]
     public async Task<IActionResult> Delete(Guid id)
     {
         await _mediator.Send(new DeleteTaskCommand(id));
@@ -54,6 +58,7 @@ public class TasksController : ControllerBase
     }
 
     [HttpGet]
+    [Authorize]
     public async Task<IActionResult> GetAll([FromQuery] int page = 1, [FromQuery] int pageSize = 10)
     {
         var query = new GetTasksQuery(page, pageSize);

@@ -1,7 +1,6 @@
 ﻿using FluentAssertions;
 using Moq;
-using TaskManagement.Application.Tasks.Commands.CreateTask;
-using TaskManagement.Application.Users.Commands;
+using TaskManagement.Application.Users.Commands.CreateUser;
 using TaskManagement.Domain.Interfaces.Repositories;
 
 namespace TaskManagement.Tests.Unit.Application.Users

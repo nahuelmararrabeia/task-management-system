@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using TaskManagement.Application.Common.Exceptions;
 using TaskManagement.Domain.Interfaces.Repositories;
 
-namespace TaskManagement.Application.Users.Commands
+namespace TaskManagement.Application.Users.Commands.CreateUser
 {
     public class CreateUserHandler : IRequestHandler<CreateUserCommand,  CreateUserResponse>
     {
