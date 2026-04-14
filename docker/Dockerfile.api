@@ -1,0 +1,28 @@
+# Build stage
+FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build
+WORKDIR /src
+
+COPY api/**/*.csproj ./
+RUN for f in *.csproj; do \
+      mkdir -p api/${f%.*} && mv $f api/${f%.*}/; \
+    done
+
+RUN dotnet restore ./api/TaskManagement.Api/TaskManagement.Api.csproj
+
+COPY api/ ./api/
+
+RUN dotnet restore ./api/TaskManagement.Api/TaskManagement.Api.csproj
+RUN dotnet publish ./api/TaskManagement.Api/TaskManagement.Api.csproj \
+    -c Release \
+    -o /app/publish
+
+# Runtime stage
+FROM mcr.microsoft.com/dotnet/aspnet:10.0
+WORKDIR /app
+
+COPY --from=build /app/publish .
+
+ENV ASPNETCORE_URLS=http://0.0.0.0:8080
+EXPOSE 8080
+
+ENTRYPOINT ["dotnet", "TaskManagement.Api.dll"]
