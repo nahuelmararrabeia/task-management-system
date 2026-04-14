@@ -1,6 +1,5 @@
 ﻿using FluentAssertions;
 using Microsoft.Extensions.DependencyInjection;
-using Renci.SshNet.Sftp;
 using System.Net.Http.Json;
 using TaskManagement.Application.Tasks.Commands.AssignUser;
 using TaskManagement.Application.Tasks.Commands.CreateTask;
