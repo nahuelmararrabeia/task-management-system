@@ -6,7 +6,6 @@ public class User : AuditableEntity
     public string Email { get; private set; }
     public string Name { get; private set; }
     public string PasswordHash { get; private set; }
-    public DateTime CreatedAt { get; private set; }
     public bool IsDeleted { get; private set; }
     public DateTime? DeletedAt { get; private set; }
 
@@ -22,7 +21,6 @@ public class User : AuditableEntity
         Email = email;
         Name = name;
         PasswordHash = passwordHash;
-        CreatedAt = DateTime.UtcNow;
     }
 
     public void Update(string name, string email)

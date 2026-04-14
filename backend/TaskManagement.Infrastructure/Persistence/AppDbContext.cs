@@ -20,11 +20,19 @@ public class AppDbContext : DbContext
         modelBuilder.Entity<TaskItem>()
             .HasQueryFilter(t => !t.IsDeleted);
 
+        modelBuilder.Entity<TaskItem>()
+           .HasOne(t => t.AssignedUser)
+           .WithMany()
+           .HasForeignKey(t => t.AssignedUserId)
+           .OnDelete(DeleteBehavior.SetNull)
+           .IsRequired(false);
+
         modelBuilder.Entity<User>()
             .HasQueryFilter(t => !t.IsDeleted);
 
         modelBuilder.Entity<User>()
             .HasIndex(u => u.Email)
             .IsUnique();
+
     }
 }

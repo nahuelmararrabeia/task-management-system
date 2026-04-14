@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using TaskManagement.Application.Tasks.Commands.AssignUser;
 using TaskManagement.Application.Tasks.Commands.CreateTask;
 using TaskManagement.Application.Tasks.Commands.DeleteTask;
 using TaskManagement.Application.Tasks.Commands.UpdateTask;
@@ -46,6 +47,15 @@ public class TasksController : ControllerBase
     public async Task<IActionResult> Delete(Guid id)
     {
         await _mediator.Send(new DeleteTaskCommand(id));
+        return NoContent();
+    }
+
+    [HttpPut("{taskId:guid}/assign/{userId:guid}")]
+    [Authorize]
+    public async Task<IActionResult> AssignUser(Guid taskId, Guid userId, CancellationToken cancellationToken)
+    {
+        var command = new AssignUserToTaskCommand(taskId, userId);
+        await _mediator.Send(command, cancellationToken);
         return NoContent();
     }
 
