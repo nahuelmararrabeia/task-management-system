@@ -2,11 +2,13 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using TaskManagement.Application.Tasks.Commands.AssignUser;
+using TaskManagement.Application.Tasks.Commands.ChangeStatus;
 using TaskManagement.Application.Tasks.Commands.CreateTask;
 using TaskManagement.Application.Tasks.Commands.DeleteTask;
 using TaskManagement.Application.Tasks.Commands.UpdateTask;
 using TaskManagement.Application.Tasks.Queries.GetTaskById;
 using TaskManagement.Application.Tasks.Queries.GetTasks;
+using TaskManagement.Domain.Enums;
 
 namespace TaskManagement.Api.Controllers;
 
@@ -50,12 +52,21 @@ public class TasksController : ControllerBase
         return NoContent();
     }
 
-    [HttpPut("{taskId:guid}/assign/{userId:guid}")]
+    [HttpPatch("{taskId:guid}/assign/{userId:guid}")]
     [Authorize]
     public async Task<IActionResult> AssignUser(Guid taskId, Guid userId, CancellationToken cancellationToken)
     {
         var command = new AssignUserToTaskCommand(taskId, userId);
         await _mediator.Send(command, cancellationToken);
+        return NoContent();
+    }
+
+    [HttpPatch("{taskId:guid}/status")]
+    [Authorize]
+    public async Task<IActionResult> ChangeStatus(Guid taskId, ChangeTaskStatusCommand command)
+    {
+        var cmd = command with { TaskId = taskId };
+        await _mediator.Send(cmd);
         return NoContent();
     }
 

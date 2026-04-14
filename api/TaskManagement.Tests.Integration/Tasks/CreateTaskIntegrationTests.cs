@@ -5,6 +5,7 @@ using System.Net.Http.Json;
 using TaskManagement.Application.Tasks.Commands.CreateTask;
 using TaskManagement.Application.Tasks.Queries.GetTaskById;
 using TaskManagement.Domain.Entities;
+using TaskManagement.Domain.Enums;
 using TaskManagement.Infrastructure.Persistence;
 using TaskManagement.Tests.Integration.Fixtures;
 using TaskManagement.Tests.Integration.TestData.Builders;
@@ -75,6 +76,23 @@ public class CreateTaskIntegrationTests
 
         // THEN
         response.StatusCode.Should().Be(HttpStatusCode.NotFound);
+    }
+
+    [Fact]
+    public async Task Should_Create_Task_With_Default_Status()
+    {
+        // GIVEN
+        var request = new CreateTaskRequestBuilder().Build();
+
+        // WHEN
+        var response = await _fixture.Client.PostAsJsonAsync("/api/tasks", request);
+        var result = await response.Content.ReadFromJsonAsync<CreateTaskResponse>();
+
+
+        // THEN
+        var task = await GetDbTaskItem(result!.Id);
+
+        task!.Status.Should().Be(TaskItemStatus.Pending);
     }
 
     private async Task<TaskItem?> GetDbTaskItem(Guid id)

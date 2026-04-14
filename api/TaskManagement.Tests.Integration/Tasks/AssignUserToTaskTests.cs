@@ -34,7 +34,7 @@ namespace TaskManagement.Tests.Integration.Tasks
             // WHEN
             var assignRequest = new AssignUserToTaskCommand(task!.Id, user!.Id);
 
-            var assignResponse = await _fixture.Client.PutAsync($"/api/tasks/{task.Id}/assign/{user.Id}", null);
+            var assignResponse = await _fixture.Client.PatchAsync($"/api/tasks/{task.Id}/assign/{user.Id}", null);
 
             // THEN
             assignResponse.EnsureSuccessStatusCode();

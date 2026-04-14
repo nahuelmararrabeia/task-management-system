@@ -1,4 +1,5 @@
 ﻿using TaskManagement.Domain.Common;
+using TaskManagement.Domain.Enums;
 
 namespace TaskManagement.Domain.Entities
 {
@@ -11,12 +12,15 @@ namespace TaskManagement.Domain.Entities
         public DateTime? DeletedAt { get; private set; }
         public Guid? AssignedUserId { get; private set; }
         public User? AssignedUser { get; private set; }
+        public TaskItemStatus Status { get; private set; }
 
         public TaskItem(string title, string description)
         {
             Id = Guid.NewGuid();
             Title = title;
             Description = description;
+
+            Status = TaskItemStatus.Pending;
         }
 
         public void Update(string title, string description)
@@ -36,6 +40,14 @@ namespace TaskManagement.Domain.Entities
         public void UnassignUser()
         {
             AssignedUserId = null;
+        }
+
+        public void ChangeStatus(TaskItemStatus status)
+        {
+            if (IsDeleted)
+                throw new InvalidOperationException("Cannot modify deleted task");
+
+            Status = status;
         }
 
         public void Delete()

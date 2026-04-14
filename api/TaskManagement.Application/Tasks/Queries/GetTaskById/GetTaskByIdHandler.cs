@@ -23,6 +23,12 @@ public class GetTaskByIdHandler : IRequestHandler<GetTaskByIdQuery, GetTaskByIdR
         var assignedUser = task.AssignedUser is null ? null
             : new AssignedUserDTO(task.AssignedUser.Id, task.AssignedUser.Name, task.AssignedUser.Email);
 
-        return new GetTaskByIdResponse(task.Id, task.Title, task.Description, task.CreatedAt, assignedUser);
+        return new GetTaskByIdResponse(
+            task.Id,
+            task.Title,
+            task.Description,
+            task.CreatedAt,
+            assignedUser,
+            task.Status);
     }
 }

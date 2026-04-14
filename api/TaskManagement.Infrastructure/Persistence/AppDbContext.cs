@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using TaskManagement.Domain.Entities;
+using TaskManagement.Domain.Enums;
 
 namespace TaskManagement.Infrastructure.Persistence;
 
@@ -26,6 +27,11 @@ public class AppDbContext : DbContext
            .HasForeignKey(t => t.AssignedUserId)
            .OnDelete(DeleteBehavior.SetNull)
            .IsRequired(false);
+
+        modelBuilder.Entity<TaskItem>()
+            .Property(t => t.Status)
+            .HasConversion<string>()
+            .HasDefaultValue(TaskItemStatus.Pending);
 
         modelBuilder.Entity<User>()
             .HasQueryFilter(t => !t.IsDeleted);
