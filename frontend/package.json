@@ -1,0 +1,14 @@
+{
+  "name": "task-management-frontend",
+  "version": "1.0.0",
+  "private": true,
+  "workspaces": [
+    "packages/*",
+    "apps/*"
+  ],
+  "scripts": {
+    "dev": "npm run dev --workspace=apps/web",
+    "storybook": "storybook dev -p 6006",
+    "build:ui": "npm run build --workspace=packages/ui"
+  }
+}
