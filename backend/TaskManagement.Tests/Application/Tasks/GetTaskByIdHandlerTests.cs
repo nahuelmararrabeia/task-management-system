@@ -17,7 +17,7 @@ namespace TaskManagement.Tests.Application.Tasks
             var guid = Guid.NewGuid();
 
             repoMock
-                .Setup(r => r.GetByIdAsync(It.IsAny<Guid>()))
+                .Setup(r => r.GetByIdWithUserAsync(It.IsAny<Guid>()))
                 .ReturnsAsync(taskItemMock);
 
             var handler = new GetTaskByIdHandler(repoMock.Object);
@@ -30,7 +30,56 @@ namespace TaskManagement.Tests.Application.Tasks
 
             result.Title.Should().Be(taskItemMock.Title);
             result.Description.Should().Be(taskItemMock.Description);
-            repoMock.Verify(r => r.GetByIdAsync(guid), Times.Once);
+            repoMock.Verify(r => r.GetByIdWithUserAsync(guid), Times.Once);
+        }
+
+        [Fact]
+        public async Task Should_Get_Task_WithUser_By_Id()
+        {
+            var repoMock = new Mock<ITaskRepository>();
+            var user = new UserBuilder().Build();
+            var taskItemMock = new TaskItemBuilder()
+                .WithAssignedUser(user).Build();
+            var guid = Guid.NewGuid();
+
+            repoMock
+                .Setup(r => r.GetByIdWithUserAsync(It.IsAny<Guid>()))
+                .ReturnsAsync(taskItemMock);
+
+            var handler = new GetTaskByIdHandler(repoMock.Object);
+
+            var command = new GetTaskByIdQuery(guid);
+
+
+            var result = await handler.Handle(command, CancellationToken.None);
+
+            result.AssignedUser.Should().NotBeNull();
+            result.AssignedUser.Name.Should().Be(user.Name);
+            result.AssignedUser.Email.Should().Be(user.Email);
+            result.AssignedUser.Id.Should().Be(user.Id);
+            repoMock.Verify(r => r.GetByIdWithUserAsync(guid), Times.Once);
+        }
+
+        [Fact]
+        public async Task Should_Get_Task_WithoutUser_By_Id()
+        {
+            var repoMock = new Mock<ITaskRepository>();
+            var taskItemMock = new TaskItemBuilder().Build();
+            var guid = Guid.NewGuid();
+
+            repoMock
+                .Setup(r => r.GetByIdWithUserAsync(It.IsAny<Guid>()))
+                .ReturnsAsync(taskItemMock);
+
+            var handler = new GetTaskByIdHandler(repoMock.Object);
+
+            var command = new GetTaskByIdQuery(guid);
+
+
+            var result = await handler.Handle(command, CancellationToken.None);
+
+            result.AssignedUser.Should().BeNull();
+            repoMock.Verify(r => r.GetByIdWithUserAsync(guid), Times.Once);
         }
 
         [Fact]
@@ -56,7 +105,7 @@ namespace TaskManagement.Tests.Application.Tasks
             var repoMock = new Mock<ITaskRepository>();
 
             repoMock
-                .Setup(r => r.GetByIdAsync(It.IsAny<Guid>()))
+                .Setup(r => r.GetByIdWithUserAsync(It.IsAny<Guid>()))
                 .ThrowsAsync(new Exception("DB error"));
 
             var handler = new GetTaskByIdHandler(repoMock.Object);

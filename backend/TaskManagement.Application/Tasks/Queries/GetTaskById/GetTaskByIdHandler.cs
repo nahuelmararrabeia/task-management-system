@@ -15,11 +15,14 @@ public class GetTaskByIdHandler : IRequestHandler<GetTaskByIdQuery, GetTaskByIdR
 
     public async Task<GetTaskByIdResponse> Handle(GetTaskByIdQuery request, CancellationToken cancellationToken)
     {
-        var task = await _repository.GetByIdAsync(request.Id);
+        var task = await _repository.GetByIdWithUserAsync(request.Id);
 
         if (task is null)
             throw new NotFoundException("Task", "Id", request.Id.ToString());
 
-        return new GetTaskByIdResponse(task.Id, task.Title, task.Description, task.CreatedAt);
+        var assignedUser = task.AssignedUser is null ? null
+            : new AssignedUserDTO(task.AssignedUser.Id, task.AssignedUser.Name, task.AssignedUser.Email);
+
+        return new GetTaskByIdResponse(task.Id, task.Title, task.Description, task.CreatedAt, assignedUser);
     }
 }

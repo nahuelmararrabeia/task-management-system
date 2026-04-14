@@ -6,6 +6,7 @@ namespace TaskManagement.Tests.Unit.TestData.Builders
     {
         private string _title = "Default Task";
         private string _description = "Default Description";
+        private User? _assignedUser;
 
         public TaskItemBuilder WithTitle(string title)
         {
@@ -19,9 +20,25 @@ namespace TaskManagement.Tests.Unit.TestData.Builders
             return this;
         }
 
+        public TaskItemBuilder WithAssignedUser(User user)
+        {
+            _assignedUser = user;
+            return this;
+        }
+
         public TaskItem Build()
         {
-            return new TaskItem(_title, _description);
+            var task = new TaskItem(_title, _description);
+
+            if(_assignedUser is not null)
+            {
+                task.AssignUser(_assignedUser.Id);
+                typeof(TaskItem)
+                    .GetProperty(nameof(TaskItem.AssignedUser))!
+                    .SetValue(task, _assignedUser);
+            }
+
+            return task;
         }
     }
 }

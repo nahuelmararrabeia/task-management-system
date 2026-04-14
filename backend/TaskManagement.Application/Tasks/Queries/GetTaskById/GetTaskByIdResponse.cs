@@ -4,5 +4,6 @@ public record GetTaskByIdResponse(
     Guid Id,
     string Title,
     string Description,
-    DateTimeOffset CreatedAt
+    DateTimeOffset CreatedAt,
+    AssignedUserDTO? AssignedUser
 );

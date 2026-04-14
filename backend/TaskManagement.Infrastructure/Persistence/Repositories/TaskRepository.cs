@@ -30,6 +30,13 @@ public class TaskRepository : ITaskRepository
         return await _context.Tasks.FindAsync(id);
     }
 
+    public async Task<TaskItem?> GetByIdWithUserAsync(Guid id)
+    {
+        return await _context.Tasks
+            .Include(t => t.AssignedUser)
+            .FirstOrDefaultAsync(t => t.Id == id);
+    }
+
     public async Task<(List<TaskItem>, int)> GetAllAsync(int page, int pageSize)
     {
         var query = _context.Tasks.AsQueryable();
