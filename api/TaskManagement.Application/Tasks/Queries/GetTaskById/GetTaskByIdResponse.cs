@@ -8,5 +8,5 @@ public record GetTaskByIdResponse(
     string Description,
     DateTimeOffset CreatedAt,
     AssignedUserDTO? AssignedUser,
-    TaskItemStatus Status
+    string Status
 );

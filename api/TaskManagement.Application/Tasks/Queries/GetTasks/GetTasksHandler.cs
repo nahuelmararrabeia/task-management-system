@@ -21,7 +21,8 @@ namespace TaskManagement.Application.Tasks.Queries.GetTasks
                     t.Id,
                     t.Title,
                     t.Description,
-                    t.CreatedAt
+                    t.CreatedAt,
+                    t.Status.ToString()
                 ));
 
             return new GetTasksResponse(items, totalCount);

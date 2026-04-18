@@ -40,7 +40,7 @@ namespace TaskManagement.Tests.Integration.Tasks
             var updatedTaskResponse = await _fixture.Client.GetAsync($"/api/tasks/{created.Id}");
             var updatedTask = await updatedTaskResponse.Content.ReadFromJsonAsync<GetTaskByIdResponse>();
 
-            updatedTask!.Status.Should().Be(TaskItemStatus.Completed);
+            updatedTask!.Status.Should().Be(TaskItemStatus.Completed.ToString());
         }
     }
 }

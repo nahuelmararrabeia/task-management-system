@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace TaskManagement.Application.Users.Commands.LoginUser
+namespace TaskManagement.Application.Auth.Commands.LoginUser
 {
     public record LoginUserCommand(
         string Email,

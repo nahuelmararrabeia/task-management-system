@@ -71,6 +71,7 @@ public class TasksController : ControllerBase
     }
 
     [HttpGet("{id}")]
+    [Authorize]
     public async Task<ActionResult<GetTaskByIdResponse>> GetById(Guid id)
     {
         var result = await _mediator.Send(new GetTaskByIdQuery(id));

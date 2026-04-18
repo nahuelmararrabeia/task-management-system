@@ -29,6 +29,6 @@ public class GetTaskByIdHandler : IRequestHandler<GetTaskByIdQuery, GetTaskByIdR
             task.Description,
             task.CreatedAt,
             assignedUser,
-            task.Status);
+            task.Status.ToString());
     }
 }
