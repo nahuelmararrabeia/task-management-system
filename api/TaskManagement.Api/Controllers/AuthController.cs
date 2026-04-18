@@ -24,7 +24,7 @@ namespace TaskManagement.Api.Controllers
                 HttpOnly = true,
                 Secure = true,
                 SameSite = SameSiteMode.None,
-                Expires = DateTime.UtcNow.AddSeconds(5)
+                Expires = DateTime.UtcNow.AddMinutes(10)
             });
 
             Response.Cookies.Append("refresh_token", result.RefreshToken, new CookieOptions
@@ -32,7 +32,7 @@ namespace TaskManagement.Api.Controllers
                 HttpOnly = true,
                 Secure = true,
                 SameSite = SameSiteMode.None,
-                Expires = DateTime.UtcNow.AddDays(7)
+                Expires = DateTime.UtcNow.AddDays(30)
             });
 
             return Ok();
@@ -50,7 +50,7 @@ namespace TaskManagement.Api.Controllers
                 HttpOnly = true,
                 Secure = true,
                 SameSite = SameSiteMode.None,
-                Expires = DateTime.UtcNow.AddSeconds(5)
+                Expires = DateTime.UtcNow.AddMinutes(10)
             });
 
             Response.Cookies.Append("refresh_token", result.RefreshToken, new CookieOptions
@@ -58,7 +58,7 @@ namespace TaskManagement.Api.Controllers
                 HttpOnly = true,
                 Secure = true,
                 SameSite = SameSiteMode.None,
-                Expires = DateTime.UtcNow.AddDays(7)
+                Expires = DateTime.UtcNow.AddDays(30)
             });
 
             return Ok();
