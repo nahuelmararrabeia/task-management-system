@@ -4,13 +4,12 @@ import { Task } from "@/app/features/tasks/entities/Task";
 export class CreateTaskUseCase {
   constructor(private repo: TaskRepository) {}
 
-  async execute(title: string) {
+  async execute(title: string): Promise<any> {
     const task = new Task({
-      id: crypto.randomUUID(),
       title,
-      createdAt: new Date(),
+      description: "",
     });
 
-    await this.repo.create(task);
+    return await this.repo.create(task);
   }
 }

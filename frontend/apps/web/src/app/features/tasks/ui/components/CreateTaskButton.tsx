@@ -3,21 +3,27 @@
 import { useState } from "react";
 import { Button, Input } from "@task-management/ui";
 
-export function CreateTaskButton() {
+export function CreateTaskButton({ onConfirmCreate }: { onConfirmCreate: (title: string) => void }) {
   const [open, setOpen] = useState(false);
   const [title, setTitle] = useState("");
 
-  const handleCreate = () => {
-    console.log("Create task:", title);
+
+  async function handleCreate() {
+    if (!title.trim()) return;
+
+    await onConfirmCreate(title);
+
     setTitle("");
     setOpen(false);
-  };
+  }
 
   if (!open) {
     return (
-      <Button variant="primary" onClick={() => setOpen(true)}>
-        + Nueva tarea
-      </Button>
+      <div className="p-4 flex justify-end">
+        <Button variant="primary" className="w-full" onClick={() => setOpen(true)}>
+          + Nueva tarea
+        </Button>
+      </div>
     );
   }
 

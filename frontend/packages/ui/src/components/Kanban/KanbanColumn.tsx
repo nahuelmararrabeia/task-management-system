@@ -14,7 +14,7 @@ export function KanbanColumn({ column }: KanbanColumnProps) {
   return (
     <div
       ref={setNodeRef}
-      className="min-w-70 bg-gray-100 rounded-xl p-3 flex flex-col gap-3"
+      className="min-w-70 w-full bg-gray-100 rounded-xl p-3 flex flex-col gap-3"
     >
       <div className="font-semibold text-sm px-1">
         {column.title}

@@ -14,5 +14,5 @@ export function useTasks() {
     });
   }, [getTasks]);
 
-  return { tasks: data, loading };
+  return { tasks: data, loadingGetTasks: loading };
 }

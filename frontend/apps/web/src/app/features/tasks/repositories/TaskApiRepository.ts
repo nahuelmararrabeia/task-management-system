@@ -20,8 +20,9 @@ export class TaskApiRepository implements TaskRepository {
     return this.mapToDomain(data);
   }
 
-  async create(task: Task): Promise<void> {
-    await apiClient.post("/tasks", this.mapToDto(task));
+  async create(task: Task): Promise<any> {
+    const res = await apiClient.post("/tasks", this.mapToDto(task));
+    return await res.json();
   }
 
   async update(task: Task): Promise<void> {
