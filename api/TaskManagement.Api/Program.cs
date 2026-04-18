@@ -64,7 +64,7 @@ builder.Services.AddCors(options =>
     options.AddPolicy("AllowFrontend", policy =>
     {
         policy
-            .WithOrigins("http://localhost:3000", "https://task-management-system-web-ebon.vercel.app/")
+            .WithOrigins("http://localhost:3000", "https://task-management-system-web-ebon.vercel.app")
             .AllowAnyHeader()
             .AllowAnyMethod()
             .AllowCredentials();
