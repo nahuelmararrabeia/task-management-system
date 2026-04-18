@@ -22,8 +22,3 @@
 
   --color-sky-500: #0ea5e9;
 }
-
-body {
-  background-color: var(--color-gray-50);
-  color: var(--color-text);
-}
