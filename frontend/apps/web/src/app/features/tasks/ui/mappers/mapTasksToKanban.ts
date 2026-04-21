@@ -14,7 +14,7 @@ export function mapTasksToKanban(tasks: Task[]): KanbanColumnData[] {
     if (!column) return;
 
     column.cards.push({
-      id: task.id,
+      id: task.id!,
       content: task.title,
     });
   });

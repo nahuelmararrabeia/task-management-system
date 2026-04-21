@@ -6,9 +6,10 @@ interface KanbanCardProps {
   id: string;
   children: ReactNode;
   className?: string;
+  onCardClick?: (id: string) => void;
 }
 
-export function KanbanCard({ id, children }: KanbanCardProps) {
+export function KanbanCard({ id, children, onCardClick }: KanbanCardProps) {
   const { attributes, listeners, setNodeRef, transform } =
     useDraggable({ id });
 
@@ -16,15 +17,23 @@ export function KanbanCard({ id, children }: KanbanCardProps) {
     transform: CSS.Translate.toString(transform),
   };
 
+  const handleClick = () => {
+    onCardClick?.(id);
+  }
+
   return (
     <div
       ref={setNodeRef}
       style={style}
-      {...listeners}
-      {...attributes}
-      className="bg-white rounded-lg shadow-sm p-3 text-sm cursor-grab"
+      className="bg-white flex justify-between rounded-lg shadow-sm p-3 text-sm"
     >
-      {children}
+      <div onClick={handleClick} className="cursor-pointer">
+        {children}
+      </div>
+
+      <div {...listeners} {...attributes} className="cursor-grab">
+        ⠿
+      </div>
     </div>
   );
 }

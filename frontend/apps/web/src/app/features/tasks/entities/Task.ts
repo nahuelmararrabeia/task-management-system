@@ -1,3 +1,5 @@
+import { User } from "@/app/features/users/entities/User";
+
 export type TaskStatus = "Pending" | "InProgress" | "Completed";
 
 export interface TaskProps {
@@ -6,6 +8,7 @@ export interface TaskProps {
   description: string;
   status?: TaskStatus;
   createdAt?: Date;
+  assignedUser?: User;
 }
 
 export class Task {
@@ -34,6 +37,10 @@ export class Task {
 
   get createdAt() {
     return this.props.createdAt;
+  }
+
+  get assignedUser() {
+    return this.props.assignedUser;
   }
 
   changeStatus(newStatus: TaskStatus) {

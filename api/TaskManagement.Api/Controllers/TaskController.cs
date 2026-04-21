@@ -81,7 +81,7 @@ public class TasksController : ControllerBase
 
     [HttpGet]
     [Authorize]
-    public async Task<IActionResult> GetAll([FromQuery] int page = 1, [FromQuery] int pageSize = 10)
+    public async Task<IActionResult> GetPaged([FromQuery] int page = 1, [FromQuery] int pageSize = 10)
     {
         var query = new GetTasksQuery(page, pageSize);
 

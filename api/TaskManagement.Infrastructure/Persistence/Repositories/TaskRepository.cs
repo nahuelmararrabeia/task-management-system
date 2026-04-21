@@ -37,7 +37,7 @@ public class TaskRepository : ITaskRepository
             .FirstOrDefaultAsync(t => t.Id == id);
     }
 
-    public async Task<(List<TaskItem>, int)> GetAllAsync(int page, int pageSize)
+    public async Task<(List<TaskItem>, int)> GetPagedAsync(int page, int pageSize)
     {
         var query = _context.Tasks.AsQueryable();
 
@@ -45,6 +45,23 @@ public class TaskRepository : ITaskRepository
 
         var items = await query
             .AsNoTracking()
+            .OrderByDescending(t => t.CreatedAt)
+            .Skip((page - 1) * pageSize)
+            .Take(pageSize)
+            .ToListAsync();
+
+        return (items, totalCount);
+    }
+
+    public async Task<(List<TaskItem>, int)> GetPagedWithUserAsync(int page, int pageSize)
+    {
+        var query = _context.Tasks.AsQueryable();
+
+        var totalCount = await query.CountAsync();
+
+        var items = await query
+            .AsNoTracking()
+            .Include(t => t.AssignedUser)
             .OrderByDescending(t => t.CreatedAt)
             .Skip((page - 1) * pageSize)
             .Take(pageSize)

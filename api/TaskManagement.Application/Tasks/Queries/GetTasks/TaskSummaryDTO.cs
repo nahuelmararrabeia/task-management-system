@@ -7,6 +7,7 @@ namespace TaskManagement.Application.Tasks.Queries.GetTasks
         string Title,
         string Description,
         DateTimeOffset CreatedAt,
-        string Status
+        string Status,
+        AssignedUserDTO? AssignedUser
     );
 }

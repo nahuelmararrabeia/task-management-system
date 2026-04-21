@@ -14,7 +14,7 @@ namespace TaskManagement.Application.Tasks.Queries.GetTasks
 
         public async Task<GetTasksResponse> Handle(GetTasksQuery request, CancellationToken cancellationToken)
         {
-            var (tasks, totalCount) = await _repository.GetAllAsync(request.Page, request.PageSize);
+            var (tasks, totalCount) = await _repository.GetPagedWithUserAsync(request.Page, request.PageSize);
 
             var items = tasks
                 .Select(t => new TaskSummaryDTO(
@@ -22,7 +22,9 @@ namespace TaskManagement.Application.Tasks.Queries.GetTasks
                     t.Title,
                     t.Description,
                     t.CreatedAt,
-                    t.Status.ToString()
+                    t.Status.ToString(),
+                    t.AssignedUser is null ? null 
+                        : new AssignedUserDTO(t.AssignedUser.Id, t.AssignedUser.Name)
                 ));
 
             return new GetTasksResponse(items, totalCount);

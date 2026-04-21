@@ -4,9 +4,10 @@ import { useDroppable } from "@dnd-kit/core";
 
 interface KanbanColumnProps {
   column: KanbanColumnData;
+  onCardClick?: (id: string) => void;
 }
 
-export function KanbanColumn({ column }: KanbanColumnProps) {
+export function KanbanColumn({ column, onCardClick }: KanbanColumnProps) {
   const { setNodeRef } = useDroppable({
     id: column.id,
   });
@@ -22,7 +23,11 @@ export function KanbanColumn({ column }: KanbanColumnProps) {
 
       <div className="flex flex-col gap-2">
         {column.cards.map((card) => (
-          <KanbanCard key={card.id} id={card.id}>
+          <KanbanCard
+            key={card.id}
+            id={card.id}
+            onCardClick={onCardClick}
+          >
             {card.content}
           </KanbanCard>
         ))}

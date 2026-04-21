@@ -14,9 +14,10 @@ interface KanbanBoardProps {
     toColumnId: string;
     toIndex: number;
   }) => void;
+  onCardClick?: (id: string) => void;
 }
 
-export function KanbanBoard({ columns, onCardMove }: KanbanBoardProps) {
+export function KanbanBoard({ columns, onCardMove, onCardClick }: KanbanBoardProps) {
     function findColumnByCardId(cardId: string) {
     return columns.find((col) =>
       col.cards.some((c) => c.id === cardId)
@@ -46,6 +47,10 @@ export function KanbanBoard({ columns, onCardMove }: KanbanBoardProps) {
     });
   };
 
+  const handleCardClick = (id: string) => {
+    onCardClick?.(id);
+  };
+
   return (
     <DndContext
       collisionDetection={closestCenter}
@@ -53,7 +58,11 @@ export function KanbanBoard({ columns, onCardMove }: KanbanBoardProps) {
     >
       <div className="flex gap-4 overflow-x-auto p-4">
         {columns.map((column) => (
-          <KanbanColumn key={column.id} column={column} />
+          <KanbanColumn
+            key={column.id}
+            column={column}
+            onCardClick={handleCardClick}
+          />
         ))}
       </div>
     </DndContext>

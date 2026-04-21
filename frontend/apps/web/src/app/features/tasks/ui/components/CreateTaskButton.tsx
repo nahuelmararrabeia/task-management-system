@@ -19,7 +19,7 @@ export function CreateTaskButton({ onConfirmCreate }: { onConfirmCreate: (title:
 
   if (!open) {
     return (
-      <div className="p-4 flex justify-end">
+      <div className="p-4 flex justify-end mx-4">
         <Button variant="primary" className="w-full" onClick={() => setOpen(true)}>
           + Nueva tarea
         </Button>
@@ -28,7 +28,7 @@ export function CreateTaskButton({ onConfirmCreate }: { onConfirmCreate: (title:
   }
 
   return (
-    <div className="flex gap-2 items-center">
+    <div className="flex gap-2 items-center justify-end mx-4">
       <Input
         autoFocus
         value={title}

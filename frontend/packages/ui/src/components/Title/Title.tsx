@@ -12,8 +12,8 @@ interface TitleProps {
 }
 
 const sizeStyles: Record<TitleSize, string> = {
-  xl: "text-3xl font-bold m-4",
-  lg: "text-2xl font-semibold m-3",
+  xl: "text-3xl font-bold my-4",
+  lg: "text-2xl font-semibold my-3",
   md: "text-xl font-semibold",
   sm: "text-lg font-medium",
 };

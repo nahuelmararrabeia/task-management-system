@@ -1,6 +1,7 @@
 import { TaskRepository } from "@/app/features/tasks/repositories/interfaces/TaskRepository";
 import { Task } from "@/app/features/tasks/entities/Task";
 import { apiClient } from "@/app/shared/http/clients";
+import { User } from "@/app/features/users/entities/User";
 
 export class TaskApiRepository implements TaskRepository {
 
@@ -45,6 +46,9 @@ export class TaskApiRepository implements TaskRepository {
       description: data.description,
       status: data.status,
       createdAt: new Date(data.createdAt),
+      assignedUser: data.assignedUser 
+        ? new User({ id: data.assignedUser.id, name: data.assignedUser.name }) 
+        : undefined,
     });
   }
 
